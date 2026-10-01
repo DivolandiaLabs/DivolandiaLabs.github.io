@@ -714,8 +714,6 @@
         o.setAttribute('aria-selected', on ? 'true' : 'false');
       });
       document.documentElement.lang = lang;
-      // Recordar el idioma elegido para la próxima visita
-      try { localStorage.setItem('dl-lang', lang); } catch (e) {}
     }
 
     const btn      = document.getElementById('langBtn');
@@ -743,13 +741,8 @@
       });
     });
 
-    // Idioma inicial: el guardado por el visitante; si no hay, inglés.
-    let initial = 'en';
-    try {
-      const saved = localStorage.getItem('dl-lang');
-      if (saved && i18n[saved]) initial = saved;
-    } catch (e) {}
-    applyLang(initial);
+    // La web siempre se abre en inglés por defecto.
+    applyLang('en');
   </script>
 </body>
 </html>
