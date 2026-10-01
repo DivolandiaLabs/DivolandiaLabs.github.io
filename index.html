@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Divolandia Labs — Software Development</title>
+  <meta name="description" content="Divolandia Labs — Independent software development studio. Web development, applications, automation, and digital solutions." />
+  <link rel="canonical" href="https://divolandialabs.github.io/" />
+  <meta name="theme-color" content="#0a0d14" />
+  <meta name="color-scheme" content="dark" />
+
+  <!-- Favicon (usa el logo que ya está en el repo) -->
+  <link rel="icon" href="Divolandia%20Labs%20logo.jpg" />
+  <link rel="apple-touch-icon" href="Divolandia%20Labs%20logo.jpg" />
+
+  <!-- Open Graph / Twitter: previsualización al compartir el enlace -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://divolandialabs.github.io/" />
+  <meta property="og:site_name" content="Divolandia Labs" />
+  <meta property="og:title" content="Divolandia Labs — Software Development" />
+  <meta property="og:description" content="Independent software development studio. Web development, applications, automation, and digital solutions." />
+  <meta property="og:image" content="https://divolandialabs.github.io/Divolandia%20Labs%20logo.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Divolandia Labs — Software Development" />
+  <meta name="twitter:description" content="Independent software development studio. Web development, applications, automation, and digital solutions." />
+  <meta name="twitter:image" content="https://divolandialabs.github.io/Divolandia%20Labs%20logo.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:       #0a0d14;
+      --surface:  #111623;
+      --surface2: #161c2d;
+      --border:   #1e2535;
+      --cyan:     #00d4ff;
+      --cyan-dim: #0094b3;
+      --cyan-bg:  rgba(0,212,255,.07);
+      --text:     #e2e8f0;
+      --muted:    #6b7a96;
+      --white:    #ffffff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; color-scheme: dark; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Accesibilidad: foco visible con teclado */
+    a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+      border-radius: .25rem;
+    }
+    .skip-link {
+      position: absolute; left: -9999px; top: 0; z-index: 200;
+      background: var(--cyan); color: #000;
+      padding: .7rem 1.2rem; font-weight: 600;
+      text-decoration: none; border-radius: 0 0 .4rem 0;
+    }
+    .skip-link:focus { left: 0; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem;
+      padding: 1.1rem 3rem;
+      background: rgba(10,13,20,.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 1rem;
+      color: var(--white); letter-spacing: -.01em;
+      text-decoration: none; white-space: nowrap; flex-shrink: 0;
+    }
+    .nav-logo span { color: var(--cyan); }
+    .nav-right { display: flex; align-items: center; gap: 2.5rem; min-width: 0; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none;
+      font-size: .9rem; font-weight: 500;
+      transition: color .15s;
+    }
+    .nav-links a:hover { color: var(--cyan); }
+
+    /* Language selector */
+    .lang-selector { position: relative; flex-shrink: 0; }
+    .lang-btn {
+      display: flex; align-items: center; gap: .4rem;
+      background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); font-family: 'Inter', sans-serif;
+      font-size: .85rem; font-weight: 500;
+      padding: .35rem .75rem; border-radius: .3rem;
+      cursor: pointer; transition: border-color .15s;
+    }
+    .lang-btn:hover { border-color: var(--cyan); color: var(--cyan); }
+    .lang-btn svg { width:14px; height:14px; }
+    .lang-dropdown {
+      display: none;
+      position: absolute; top: calc(100% + .4rem); right: 0;
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: .4rem; overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,.4);
+      min-width: 140px;
+    }
+    .lang-dropdown.open { display: block; }
+    .lang-option {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .55rem 1rem; font-size: .88rem;
+      cursor: pointer; transition: background .1s;
+      color: var(--text);
+    }
+    .lang-option:hover { background: var(--border); }
+    .lang-option.active { color: var(--cyan); font-weight: 500; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex; align-items: center;
+      padding: 7rem 3rem 5rem;
+      max-width: 1100px; margin: 0 auto;
+      position: relative;
+    }
+    /* grid decorativa */
+    #hero::before {
+      content: '';
+      position: fixed; inset: 0; z-index: -1;
+      background-image:
+        linear-gradient(rgba(0,212,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: fixed; top: 15%; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 350px;
+      max-width: 100%;
+      background: radial-gradient(ellipse, rgba(0,212,255,.09) 0%, transparent 70%);
+      z-index: -1; pointer-events: none;
+    }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center; width: 100%;
+    }
+    .hero-left { border-left: 3px solid var(--cyan); padding-left: 2rem; }
+    .hero-eyebrow {
+      font-size: .8rem; color: var(--cyan);
+      font-weight: 500; letter-spacing: .06em;
+      margin-bottom: 1.4rem;
+    }
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 700; line-height: 1.08;
+      letter-spacing: -.03em; color: var(--white);
+      margin-bottom: 1.4rem;
+    }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--muted);
+      line-height: 1.75; max-width: 420px;
+      margin-bottom: 2.4rem; font-weight: 300;
+    }
+    .hero-actions { display: flex; gap: .8rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--cyan); color: #000;
+      padding: .75rem 1.8rem; border-radius: .35rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600; font-size: .95rem;
+      text-decoration: none; transition: opacity .15s;
+    }
+    .btn-primary:hover { opacity: .85; }
+    .btn-ghost {
+      border: 1px solid var(--border); color: var(--text);
+      padding: .75rem 1.8rem; border-radius: .35rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500; font-size: .95rem;
+      text-decoration: none; transition: border-color .15s, color .15s;
+    }
+    .btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); }
+
+    .hero-right { display: flex; flex-direction: column; gap: .9rem; }
+    .hero-pill {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: .5rem; padding: 1.1rem 1.4rem;
+      display: flex; align-items: center; gap: 1rem;
+      transition: border-color .15s;
+    }
+    .hero-pill:hover { border-color: var(--cyan-dim); }
+    .pill-icon {
+      width: 36px; height: 36px; border-radius: .35rem;
+      background: var(--cyan-bg);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .pill-text h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: .92rem; font-weight: 600; color: var(--white);
+      margin-bottom: .1rem;
+    }
+    .pill-text p { font-size: .82rem; color: var(--muted); }
+
+    /* ── SERVICES ── */
+    #services {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .services-inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 6rem 3rem;
+    }
+    .section-head { margin-bottom: 3.5rem; }
+    .section-head h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+      font-weight: 700; letter-spacing: -.02em;
+      color: var(--white); margin-bottom: .7rem;
+    }
+    .section-head p { color: var(--muted); max-width: 520px; font-weight: 300; line-height: 1.75; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border); border-radius: .5rem;
+      overflow: hidden;
+    }
+    .service-item {
+      padding: 2rem;
+      border-right: 1px solid var(--border);
+      transition: background .15s;
+    }
+    .service-item:hover { background: var(--surface2); }
+    .service-item:last-child { border-right: none; }
+    .service-item:nth-child(n+4) { border-top: 1px solid var(--border); }
+    .service-num {
+      font-size: .75rem; color: var(--cyan);
+      font-weight: 700; margin-bottom: .9rem;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .service-item h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem; font-weight: 600;
+      color: var(--white); margin-bottom: .5rem;
+    }
+    .service-item p { font-size: .88rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── ABOUT ── */
+    #about {
+      max-width: 1100px; margin: 0 auto;
+      padding: 6rem 3rem;
+    }
+    .about-layout {
+      display: grid; grid-template-columns: 1fr 1.4fr;
+      gap: 6rem; align-items: start;
+    }
+    .about-left { border-left: 3px solid var(--cyan); padding-left: 2rem; }
+    .about-left h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+      font-weight: 700; letter-spacing: -.02em;
+      color: var(--white);
+    }
+    .about-right p {
+      color: var(--muted); line-height: 1.8;
+      margin-bottom: 1.1rem; font-weight: 300;
+    }
+    .about-right p:last-of-type { margin-bottom: 2rem; }
+    .about-link {
+      color: var(--cyan); text-decoration: none;
+      font-weight: 500; font-size: .95rem;
+      border-bottom: 1px solid var(--cyan-dim);
+      padding-bottom: .1rem;
+      transition: opacity .15s;
+    }
+    .about-link:hover { opacity: .7; }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+    .contact-inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 6rem 3rem;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .contact-left h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+      font-weight: 700; letter-spacing: -.02em;
+      color: var(--white); margin-bottom: .8rem;
+    }
+    .contact-left p { color: var(--muted); font-weight: 300; line-height: 1.75; }
+    .contact-right { display: flex; flex-direction: column; gap: .8rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.1rem 1.4rem;
+      border: 1px solid var(--border);
+      border-radius: .4rem; text-decoration: none;
+      color: var(--text); font-weight: 500;
+      background: var(--bg);
+      transition: border-color .15s, background .15s;
+    }
+    .contact-link:hover {
+      border-color: var(--cyan-dim);
+      background: var(--cyan-bg);
+      color: var(--cyan);
+    }
+    .contact-link-icon { font-size: 1.1rem; }
+    .contact-link-handle {
+      font-size: .85rem; color: var(--muted);
+      margin-left: auto; font-weight: 400;
+      overflow-wrap: anywhere;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    footer p { font-size: .82rem; color: var(--muted); }
+    footer a { color: var(--cyan); text-decoration: none; }
+    footer a:hover { opacity: .7; }
+    .footer-meta { display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: .9rem 1.2rem; }
+      .nav-right { gap: 1rem; }
+      /* Antes los enlaces desaparecían por completo en móvil (display:none),
+         dejando la web sin navegación. Ahora siguen accesibles. */
+      .nav-links {
+        gap: 1.1rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links a { font-size: .82rem; white-space: nowrap; }
+      #hero { padding: 6rem 1.2rem 3rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-left { padding-left: 1.2rem; }
+      .services-inner { padding: 4rem 1.2rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .service-item { border-right: none; border-top: 1px solid var(--border); }
+      .service-item:first-child { border-top: none; }
+      #about { padding: 4rem 1.2rem; }
+      .about-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-left { padding-left: 1.2rem; }
+      .contact-inner { grid-template-columns: 1fr; gap: 2.5rem; padding: 4rem 1.2rem; }
+      footer { padding: 1.5rem 1.2rem; flex-direction: column; gap: .6rem; text-align: center; }
+    }
+    @media (max-width: 420px) {
+      .nav-links { gap: .9rem; }
+      .hero-actions .btn-primary, .hero-actions .btn-ghost { width: 100%; text-align: center; }
+      .contact-link { flex-wrap: wrap; }
+      .contact-link-handle { margin-left: 0; width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#hero" data-i18n="a11y.skip">Skip to content</a>
+
+  <!-- NAV -->
+  <nav aria-label="Main navigation">
+    <a href="#hero" class="nav-logo">Divolandia<span>Labs</span></a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#services" data-i18n="nav.services">Services</a></li>
+        <li><a href="#about"    data-i18n="nav.about">About</a></li>
+        <li><a href="#contact"  data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="lang-selector">
+        <button class="lang-btn" id="langBtn" aria-label="Select language" aria-haspopup="listbox" aria-expanded="false" aria-controls="langDropdown">
+          <span id="langFlag" aria-hidden="true">🇬🇧</span>
+          <span id="langLabel">EN</span>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 7l5 5 5-5"/></svg>
+        </button>
+        <div class="lang-dropdown" id="langDropdown" role="listbox" aria-label="Language">
+          <div class="lang-option active" data-lang="en" role="option" tabindex="0" aria-selected="true"><span aria-hidden="true">🇬🇧</span>&nbsp;English</div>
+          <div class="lang-option" data-lang="es" role="option" tabindex="0" aria-selected="false"><span aria-hidden="true">🇪🇸</span>&nbsp;Español</div>
+          <div class="lang-option" data-lang="fr" role="option" tabindex="0" aria-selected="false"><span aria-hidden="true">🇫🇷</span>&nbsp;Français</div>
+          <div class="lang-option" data-lang="de" role="option" tabindex="0" aria-selected="false"><span aria-hidden="true">🇩🇪</span>&nbsp;Deutsch</div>
+          <div class="lang-option" data-lang="pt" role="option" tabindex="0" aria-selected="false"><span aria-hidden="true">🇧🇷</span>&nbsp;Português</div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <p class="hero-eyebrow" data-i18n="hero.eyebrow">Software Development Studio</p>
+        <h1 data-i18n="hero.h1">Web, apps &amp; digital solutions</h1>
+        <p class="hero-sub" data-i18n="hero.sub">From websites to full applications — Divolandia Labs builds software that works. Independent development, real solutions, delivered.</p>
+        <div class="hero-actions">
+          <a href="#services" class="btn-primary" data-i18n="hero.cta1">See what I do</a>
+          <a href="#contact"  class="btn-ghost"   data-i18n="hero.cta2">Get in touch</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-pill">
+          <div class="pill-icon" aria-hidden="true">🌐</div>
+          <div class="pill-text">
+            <h4 data-i18n="pill1.title">Web Development</h4>
+            <p  data-i18n="pill1.desc">Clean, fast, responsive websites</p>
+          </div>
+        </div>
+        <div class="hero-pill">
+          <div class="pill-icon" aria-hidden="true">⚙️</div>
+          <div class="pill-text">
+            <h4 data-i18n="pill2.title">Applications</h4>
+            <p  data-i18n="pill2.desc">Custom software built to fit your needs</p>
+          </div>
+        </div>
+        <div class="hero-pill">
+          <div class="pill-icon" aria-hidden="true">🔁</div>
+          <div class="pill-text">
+            <h4 data-i18n="pill3.title">Automation</h4>
+            <p  data-i18n="pill3.desc">Workflows and tools that save time</p>
+          </div>
+        </div>
+        <div class="hero-pill">
+          <div class="pill-icon" aria-hidden="true">📦</div>
+          <div class="pill-text">
+            <h4 data-i18n="pill4.title">Digital Products</h4>
+            <p  data-i18n="pill4.desc">Ready-to-use tools and extensions</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <div id="services">
+    <div class="services-inner">
+      <div class="section-head">
+        <h2 data-i18n="services.h2">What I build</h2>
+        <p  data-i18n="services.sub">A broad range of software services, from your first website to complex web systems and custom tooling.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-item">
+          <div class="service-num" aria-hidden="true">01</div>
+          <h3 data-i18n="s1.title">Websites &amp; Landing Pages</h3>
+          <p  data-i18n="s1.desc">Professional websites, portfolios, and landing pages. Fast, mobile-first, and built to convert.</p>
+        </div>
+        <div class="service-item">
+          <div class="service-num" aria-hidden="true">02</div>
+          <h3 data-i18n="s2.title">Web Applications</h3>
+          <p  data-i18n="s2.desc">Custom web apps tailored to your workflow — dashboards, internal tools, client portals.</p>
+        </div>
+        <div class="service-item">
+          <div class="service-num" aria-hidden="true">03</div>
+          <h3 data-i18n="s3.title">Browser Extensions</h3>
+          <p  data-i18n="s3.desc">Chrome and browser extensions that extend what your team or users can do on the web.</p>
+        </div>
+        <div class="service-item">
+          <div class="service-num" aria-hidden="true">04</div>
+          <h3 data-i18n="s4.title">Automation &amp; Integrations</h3>
+          <p  data-i18n="s4.desc">Automate repetitive processes and connect your tools — APIs, bots, scheduled tasks.</p>
+        </div>
+        <div class="service-item">
+          <div class="service-num" aria-hidden="true">05</div>
+          <h3 data-i18n="s5.title">Mobile Apps</h3>
+          <p  data-i18n="s5.desc">Android and Wear OS applications, from companion apps to standalone experiences.</p>
+        </div>
+        <div class="service-item">
+          <div class="service-num" aria-hidden="true">06</div>
+          <h3 data-i18n="s6.title">Digital Products</h3>
+          <p  data-i18n="s6.desc">Ready-made tools, templates, and software products built for distribution and scale.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-layout">
+      <div class="about-left">
+        <h2 data-i18n="about.h2">Independent developer,<br>based in Spain</h2>
+      </div>
+      <div class="about-right">
+        <p data-i18n="about.p1">Divolandia Labs is a one-person software studio. I design, build, and ship software across the web, mobile, and automation — from the first line of code to the final deployment.</p>
+        <p data-i18n="about.p2">My work spans web development, custom applications, browser extensions, and digital products. Each project gets the same focus: clean code, clear purpose, and solutions that actually hold up.</p>
+        <p data-i18n="about.p3">Whether you need a website, a tool to automate your workflow, or a product built from scratch — I can help.</p>
+        <a href="https://github.com/DivolandiaLabs" target="_blank" rel="noopener" class="about-link" data-i18n="about.link">View GitHub profile</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <div id="contact">
+    <div class="contact-inner">
+      <div class="contact-left">
+        <h2 data-i18n="contact.h2">Let's build something together</h2>
+        <p  data-i18n="contact.sub">Have a project in mind? Reach out through any of these channels and I'll get back to you.</p>
+      </div>
+      <div class="contact-right">
+        <a href="https://github.com/DivolandiaLabs" target="_blank" rel="noopener" class="contact-link">
+          <span class="contact-link-icon" aria-hidden="true">💻</span>
+          <span>GitHub</span>
+          <span class="contact-link-handle">DivolandiaLabs</span>
+        </a>
+        <a href="mailto:hola@divolandialabs.com" class="contact-link">
+          <span class="contact-link-icon" aria-hidden="true">✉️</span>
+          <span data-i18n="contact.email">Email</span>
+          <span class="contact-link-handle">hola@divolandialabs.com</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <a href="https://github.com/DivolandiaLabs">Divolandia Labs</a></p>
+    <div class="footer-meta">
+      <p><a href="https://github.com/DivolandiaLabs/privacy-policy" target="_blank" rel="noopener" data-i18n="footer.privacy">Privacy Policy</a></p>
+      <p data-i18n="footer.built">Built with HTML · Hosted on GitHub Pages</p>
+    </div>
+  </footer>
+
+  <script>
+    const i18n = {
+      en: {
+        "a11y.skip":"Skip to content",
+        "nav.services":"Services","nav.about":"About","nav.contact":"Contact",
+        "hero.eyebrow":"Software Development Studio",
+        "hero.h1":"Web, apps &amp; digital solutions",
+        "hero.sub":"From websites to full applications — Divolandia Labs builds software that works. Independent development, real solutions, delivered.",
+        "hero.cta1":"See what I do","hero.cta2":"Get in touch",
+        "pill1.title":"Web Development","pill1.desc":"Clean, fast, responsive websites",
+        "pill2.title":"Applications","pill2.desc":"Custom software built to fit your needs",
+        "pill3.title":"Automation","pill3.desc":"Workflows and tools that save time",
+        "pill4.title":"Digital Products","pill4.desc":"Ready-to-use tools and extensions",
+        "services.h2":"What I build",
+        "services.sub":"A broad range of software services, from your first website to complex web systems and custom tooling.",
+        "s1.title":"Websites &amp; Landing Pages","s1.desc":"Professional websites, portfolios, and landing pages. Fast, mobile-first, and built to convert.",
+        "s2.title":"Web Applications","s2.desc":"Custom web apps tailored to your workflow — dashboards, internal tools, client portals.",
+        "s3.title":"Browser Extensions","s3.desc":"Chrome and browser extensions that extend what your team or users can do on the web.",
+        "s4.title":"Automation &amp; Integrations","s4.desc":"Automate repetitive processes and connect your tools — APIs, bots, scheduled tasks.",
+        "s5.title":"Mobile Apps","s5.desc":"Android and Wear OS applications, from companion apps to standalone experiences.",
+        "s6.title":"Digital Products","s6.desc":"Ready-made tools, templates, and software products built for distribution and scale.",
+        "about.h2":"Independent developer,<br>based in Spain",
+        "about.p1":"Divolandia Labs is a one-person software studio. I design, build, and ship software across the web, mobile, and automation — from the first line of code to the final deployment.",
+        "about.p2":"My work spans web development, custom applications, browser extensions, and digital products. Each project gets the same focus: clean code, clear purpose, and solutions that actually hold up.",
+        "about.p3":"Whether you need a website, a tool to automate your workflow, or a product built from scratch — I can help.",
+        "about.link":"View GitHub profile",
+        "contact.h2":"Let's build something together",
+        "contact.sub":"Have a project in mind? Reach out through any of these channels and I'll get back to you.",
+        "contact.email":"Email",
+        "footer.privacy":"Privacy Policy",
+        "footer.built":"Built with HTML · Hosted on GitHub Pages"
+      },
+      es: {
+        "a11y.skip":"Saltar al contenido",
+        "nav.services":"Servicios","nav.about":"Sobre mí","nav.contact":"Contacto",
+        "hero.eyebrow":"Estudio de Desarrollo de Software",
+        "hero.h1":"Web, apps y soluciones digitales",
+        "hero.sub":"De sitios web a aplicaciones completas — Divolandia Labs construye software que funciona. Desarrollo independiente, soluciones reales.",
+        "hero.cta1":"Ver servicios","hero.cta2":"Contactar",
+        "pill1.title":"Desarrollo Web","pill1.desc":"Sitios web limpios, rápidos y responsive",
+        "pill2.title":"Aplicaciones","pill2.desc":"Software a medida según tus necesidades",
+        "pill3.title":"Automatización","pill3.desc":"Flujos y herramientas que ahorran tiempo",
+        "pill4.title":"Productos Digitales","pill4.desc":"Herramientas y extensiones listas para usar",
+        "services.h2":"Qué construyo",
+        "services.sub":"Una amplia gama de servicios de software, desde tu primera web hasta sistemas complejos y herramientas a medida.",
+        "s1.title":"Webs y Landing Pages","s1.desc":"Sitios web profesionales, portfolios y landing pages. Rápidos, mobile-first y orientados a conversión.",
+        "s2.title":"Aplicaciones Web","s2.desc":"Apps web personalizadas para tu flujo de trabajo — dashboards, herramientas internas, portales de clientes.",
+        "s3.title":"Extensiones de Navegador","s3.desc":"Extensiones para Chrome que amplían lo que tu equipo o usuarios pueden hacer en la web.",
+        "s4.title":"Automatización e Integraciones","s4.desc":"Automatiza procesos repetitivos y conecta tus herramientas — APIs, bots, tareas programadas.",
+        "s5.title":"Apps Móviles","s5.desc":"Aplicaciones Android y Wear OS, desde apps complementarias hasta experiencias independientes.",
+        "s6.title":"Productos Digitales","s6.desc":"Herramientas, plantillas y productos de software listos para distribuir a escala.",
+        "about.h2":"Desarrollador independiente,<br>basado en España",
+        "about.p1":"Divolandia Labs es un estudio de software unipersonal. Diseño, construyo y publico software en web, móvil y automatización — desde la primera línea de código hasta el despliegue final.",
+        "about.p2":"Mi trabajo abarca desarrollo web, aplicaciones personalizadas, extensiones de navegador y productos digitales. Cada proyecto recibe el mismo enfoque: código limpio, propósito claro y soluciones que realmente funcionan.",
+        "about.p3":"Si necesitas una web, una herramienta para automatizar tu flujo de trabajo o un producto construido desde cero — puedo ayudarte.",
+        "about.link":"Ver perfil de GitHub",
+        "contact.h2":"Construyamos algo juntos",
+        "contact.sub":"¿Tienes un proyecto en mente? Escríbeme por cualquiera de estos canales y te respondo.",
+        "contact.email":"Email",
+        "footer.privacy":"Política de Privacidad",
+        "footer.built":"Construido con HTML · Alojado en GitHub Pages"
+      },
+      fr: {
+        "a11y.skip":"Aller au contenu",
+        "nav.services":"Services","nav.about":"À propos","nav.contact":"Contact",
+        "hero.eyebrow":"Studio de Développement Logiciel",
+        "hero.h1":"Web, apps &amp; solutions digitales",
+        "hero.sub":"Des sites web aux applications complètes — Divolandia Labs crée des logiciels qui fonctionnent. Développement indépendant, solutions concrètes.",
+        "hero.cta1":"Voir les services","hero.cta2":"Me contacter",
+        "pill1.title":"Développement Web","pill1.desc":"Sites web propres, rapides et responsives",
+        "pill2.title":"Applications","pill2.desc":"Logiciels sur mesure adaptés à vos besoins",
+        "pill3.title":"Automatisation","pill3.desc":"Workflows et outils qui font gagner du temps",
+        "pill4.title":"Produits Digitaux","pill4.desc":"Outils et extensions prêts à l'emploi",
+        "services.h2":"Ce que je construis",
+        "services.sub":"Un large éventail de services logiciels, de votre premier site à des systèmes web complexes.",
+        "s1.title":"Sites Web &amp; Landing Pages","s1.desc":"Sites professionnels, portfolios et landing pages. Rapides, mobile-first, orientés conversion.",
+        "s2.title":"Applications Web","s2.desc":"Apps web sur mesure — tableaux de bord, outils internes, portails clients.",
+        "s3.title":"Extensions de Navigateur","s3.desc":"Extensions Chrome qui étendent les capacités de vos utilisateurs sur le web.",
+        "s4.title":"Automatisation &amp; Intégrations","s4.desc":"Automatisez vos processus répétitifs et connectez vos outils — APIs, bots, tâches planifiées.",
+        "s5.title":"Applications Mobiles","s5.desc":"Applications Android et Wear OS, des apps complémentaires aux expériences autonomes.",
+        "s6.title":"Produits Digitaux","s6.desc":"Outils, templates et produits logiciels prêts à distribuer à grande échelle.",
+        "about.h2":"Développeur indépendant,<br>basé en Espagne",
+        "about.p1":"Divolandia Labs est un studio logiciel solo. Je conçois, développe et livre des logiciels pour le web, mobile et l'automatisation.",
+        "about.p2":"Mon travail couvre le développement web, les applications personnalisées, les extensions navigateur et les produits digitaux.",
+        "about.p3":"Que vous ayez besoin d'un site web, d'un outil d'automatisation ou d'un produit créé de zéro — je peux vous aider.",
+        "about.link":"Voir le profil GitHub",
+        "contact.h2":"Construisons quelque chose ensemble",
+        "contact.sub":"Un projet en tête ? Contactez-moi via l'un de ces canaux et je vous répondrai.",
+        "contact.email":"E-mail",
+        "footer.privacy":"Politique de Confidentialité",
+        "footer.built":"Construit en HTML · Hébergé sur GitHub Pages"
+      },
+      de: {
+        "a11y.skip":"Zum Inhalt springen",
+        "nav.services":"Leistungen","nav.about":"Über mich","nav.contact":"Kontakt",
+        "hero.eyebrow":"Software-Entwicklungsstudio",
+        "hero.h1":"Web, Apps &amp; digitale Lösungen",
+        "hero.sub":"Von Websites bis hin zu vollständigen Anwendungen — Divolandia Labs entwickelt Software, die funktioniert.",
+        "hero.cta1":"Leistungen ansehen","hero.cta2":"Kontakt aufnehmen",
+        "pill1.title":"Webentwicklung","pill1.desc":"Saubere, schnelle, responsive Websites",
+        "pill2.title":"Anwendungen","pill2.desc":"Maßgeschneiderte Software für Ihre Bedürfnisse",
+        "pill3.title":"Automatisierung","pill3.desc":"Workflows und Tools, die Zeit sparen",
+        "pill4.title":"Digitale Produkte","pill4.desc":"Fertige Tools und Erweiterungen",
+        "services.h2":"Was ich entwickle",
+        "services.sub":"Ein breites Spektrum an Software-Dienstleistungen, von Ihrer ersten Website bis zu komplexen Websystemen.",
+        "s1.title":"Websites &amp; Landing Pages","s1.desc":"Professionelle Websites, Portfolios und Landing Pages. Schnell, mobile-first und auf Conversion ausgerichtet.",
+        "s2.title":"Webanwendungen","s2.desc":"Maßgeschneiderte Web-Apps — Dashboards, interne Tools, Kundenportale.",
+        "s3.title":"Browser-Erweiterungen","s3.desc":"Chrome-Erweiterungen, die Ihren Nutzern mehr Möglichkeiten im Web bieten.",
+        "s4.title":"Automatisierung &amp; Integrationen","s4.desc":"Automatisieren Sie repetitive Prozesse und verbinden Sie Ihre Tools.",
+        "s5.title":"Mobile Apps","s5.desc":"Android- und Wear-OS-Anwendungen, von Begleit-Apps bis zu eigenständigen Erlebnissen.",
+        "s6.title":"Digitale Produkte","s6.desc":"Fertige Tools, Templates und Softwareprodukte für die Verteilung in großem Maßstab.",
+        "about.h2":"Unabhängiger Entwickler,<br>ansässig in Spanien",
+        "about.p1":"Divolandia Labs ist ein Ein-Personen-Softwarestudio. Ich entwerfe, entwickle und liefere Software für Web, Mobile und Automatisierung.",
+        "about.p2":"Meine Arbeit umfasst Webentwicklung, individuelle Anwendungen, Browser-Erweiterungen und digitale Produkte.",
+        "about.p3":"Ob Sie eine Website, ein Automatisierungstool oder ein Produkt von Grund auf benötigen — ich helfe Ihnen.",
+        "about.link":"GitHub-Profil ansehen",
+        "contact.h2":"Lassen Sie uns etwas zusammen bauen",
+        "contact.sub":"Haben Sie ein Projekt? Kontaktieren Sie mich über einen dieser Kanäle.",
+        "contact.email":"E-Mail",
+        "footer.privacy":"Datenschutzerklärung",
+        "footer.built":"Mit HTML gebaut · Gehostet auf GitHub Pages"
+      },
+      pt: {
+        "a11y.skip":"Ir para o conteúdo",
+        "nav.services":"Serviços","nav.about":"Sobre mim","nav.contact":"Contato",
+        "hero.eyebrow":"Estúdio de Desenvolvimento de Software",
+        "hero.h1":"Web, apps e soluções digitais",
+        "hero.sub":"De sites a aplicações completas — Divolandia Labs constrói software que funciona. Desenvolvimento independente, soluções reais.",
+        "hero.cta1":"Ver serviços","hero.cta2":"Entrar em contato",
+        "pill1.title":"Desenvolvimento Web","pill1.desc":"Sites limpos, rápidos e responsivos",
+        "pill2.title":"Aplicações","pill2.desc":"Software personalizado para suas necessidades",
+        "pill3.title":"Automação","pill3.desc":"Fluxos e ferramentas que economizam tempo",
+        "pill4.title":"Produtos Digitais","pill4.desc":"Ferramentas e extensões prontas para usar",
+        "services.h2":"O que eu construo",
+        "services.sub":"Uma ampla gama de serviços de software, do seu primeiro site a sistemas web complexos e ferramentas personalizadas.",
+        "s1.title":"Sites &amp; Landing Pages","s1.desc":"Sites profissionais, portfólios e landing pages. Rápidos, mobile-first e voltados para conversão.",
+        "s2.title":"Aplicações Web","s2.desc":"Apps web personalizados — dashboards, ferramentas internas, portais de clientes.",
+        "s3.title":"Extensões de Navegador","s3.desc":"Extensões para Chrome que ampliam o que seus usuários podem fazer na web.",
+        "s4.title":"Automação &amp; Integrações","s4.desc":"Automatize processos repetitivos e conecte suas ferramentas — APIs, bots, tarefas agendadas.",
+        "s5.title":"Apps Móveis","s5.desc":"Aplicações Android e Wear OS, de apps complementares a experiências independentes.",
+        "s6.title":"Produtos Digitais","s6.desc":"Ferramentas, templates e produtos de software prontos para distribuição em escala.",
+        "about.h2":"Desenvolvedor independente,<br>baseado na Espanha",
+        "about.p1":"Divolandia Labs é um estúdio de software solo. Projeto, construo e entrego software para web, mobile e automação.",
+        "about.p2":"Meu trabalho abrange desenvolvimento web, aplicações personalizadas, extensões de navegador e produtos digitais.",
+        "about.p3":"Se você precisa de um site, uma ferramenta para automatizar seu fluxo de trabalho ou um produto construído do zero — posso ajudar.",
+        "about.link":"Ver perfil no GitHub",
+        "contact.h2":"Vamos construir algo juntos",
+        "contact.sub":"Tem um projeto em mente? Entre em contato por qualquer um desses canais.",
+        "contact.email":"E-mail",
+        "footer.privacy":"Política de Privacidade",
+        "footer.built":"Construído com HTML · Hospedado no GitHub Pages"
+      }
+    };
+
+    const flags  = { en:'🇬🇧', es:'🇪🇸', fr:'🇫🇷', de:'🇩🇪', pt:'🇧🇷' };
+    const labels = { en:'EN',   es:'ES',   fr:'FR',   de:'DE',   pt:'PT'  };
+
+    function applyLang(lang) {
+      const t = i18n[lang];
+      if (!t) return;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+      document.getElementById('langFlag').textContent  = flags[lang];
+      document.getElementById('langLabel').textContent = labels[lang];
+      document.querySelectorAll('.lang-option').forEach(o => {
+        const on = o.dataset.lang === lang;
+        o.classList.toggle('active', on);
+        o.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      document.documentElement.lang = lang;
+      // Recordar el idioma elegido para la próxima visita
+      try { localStorage.setItem('dl-lang', lang); } catch (e) {}
+    }
+
+    const btn      = document.getElementById('langBtn');
+    const dropdown = document.getElementById('langDropdown');
+
+    function closeDropdown() {
+      dropdown.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+    function toggleDropdown() {
+      const open = dropdown.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+
+    btn.addEventListener('click', e => { e.stopPropagation(); toggleDropdown(); });
+    document.addEventListener('click', closeDropdown);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDropdown(); });
+
+    document.querySelectorAll('.lang-option').forEach(opt => {
+      const choose = () => { applyLang(opt.dataset.lang); closeDropdown(); btn.focus(); };
+      opt.addEventListener('click', choose);
+      // Selección con teclado (antes solo funcionaba con ratón)
+      opt.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(); }
+      });
+    });
+
+    // Idioma inicial: el guardado por el visitante; si no hay, inglés.
+    let initial = 'en';
+    try {
+      const saved = localStorage.getItem('dl-lang');
+      if (saved && i18n[saved]) initial = saved;
+    } catch (e) {}
+    applyLang(initial);
+  </script>
+</body>
+</html>
