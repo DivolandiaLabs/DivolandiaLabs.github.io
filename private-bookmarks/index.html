@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Private Bookmarks — Divolandia Labs</title>
+  <meta name="description" content="Private Bookmarks is a Chrome extension that locks the bookmarks and folders you choose behind a PIN." />
+  <link rel="canonical" href="https://divolandialabs.github.io/private-bookmarks/" />
+  <meta name="theme-color" content="#0a0d14" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" href="../Divolandia%20Labs%20logo.jpg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://divolandialabs.github.io/private-bookmarks/" />
+  <meta property="og:site_name" content="Divolandia Labs" />
+  <meta property="og:title" content="Private Bookmarks — PIN-protect your Chrome bookmarks" />
+  <meta property="og:description" content="Choose which bookmarks and folders to lock. Nobody but you can open them — or even see them — without your PIN." />
+  <meta property="og:image" content="https://divolandialabs.github.io/Divolandia%20Labs%20logo.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../products.css" />
+  <style>
+    /* Maqueta de la barra de marcadores del hero */
+    .mock {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: .6rem; overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,.45);
+    }
+    .mock-top { display: flex; gap: .4rem; padding: .7rem .9rem; border-bottom: 1px solid var(--border); }
+    .mock-top i { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+    .mock-bar { display: flex; flex-wrap: wrap; gap: .4rem; padding: .7rem .9rem; border-bottom: 1px solid var(--border); }
+    .bm {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .8rem; color: var(--text);
+      background: var(--bg); border: 1px solid var(--border);
+      padding: .25rem .6rem; border-radius: .3rem;
+    }
+    .bm.locked { border-color: var(--cyan-dim); color: var(--cyan); }
+    .mock-body { padding: 2.2rem 1.4rem; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+    .mock-body p { font-size: .9rem; color: var(--muted); }
+    .pin { display: flex; gap: .55rem; }
+    .pin span {
+      width: 2.4rem; height: 2.8rem; border-radius: .35rem;
+      border: 1px solid var(--border); background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--cyan); font-size: 1.3rem;
+    }
+    .pin span.on { border-color: var(--cyan-dim); }
+    .langs { display: flex; flex-wrap: wrap; gap: .5rem; }
+  </style>
+</head>
+<body>
+
+  <nav aria-label="Main navigation">
+    <a href="../" class="nav-logo">Divolandia<span>Labs</span></a>
+    <ul class="nav-links">
+      <li class="nav-products" id="navProducts">
+        <button class="nav-products-btn" id="productsBtn" aria-haspopup="true" aria-expanded="false" aria-controls="productsMenu">
+          <span>Products</span>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 7l5 5 5-5"/></svg>
+        </button>
+        <ul class="products-menu" id="productsMenu">
+          <li><a href="https://divolandialabs.github.io/onoffether/">
+            <span class="pm-icon" aria-hidden="true">🔌</span>
+            <span><span class="pm-name">OnOffEther</span><span class="pm-desc">Wired internet on/off in one click</span></span>
+          </a></li>
+          <li><a href="../local-media-for-alexa/">
+            <span class="pm-icon" aria-hidden="true">🎵</span>
+            <span><span class="pm-name">Local Media for Alexa</span><span class="pm-desc">Your Raspberry Pi music on Alexa</span></span>
+          </a></li>
+          <li><a href="../private-bookmarks/" aria-current="page">
+            <span class="pm-icon" aria-hidden="true">🔒</span>
+            <span><span class="pm-name">Private Bookmarks</span><span class="pm-desc">PIN-protect your Chrome bookmarks</span></span>
+          </a></li>
+        </ul>
+      </li>
+      <li><a href="../#services">Services</a></li>
+      <li><a href="../#about">About</a></li>
+      <li><a href="../#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="p-hero">
+      <div class="p-hero-left">
+        <p class="p-eyebrow">Chrome extension</p>
+        <h1>Lock your bookmarks with a PIN</h1>
+        <p class="p-sub">Choose which bookmarks and folders you want to lock. Nobody but you can open them — or even see them — without typing your PIN.</p>
+        <div class="p-actions">
+          <a href="#pricing" class="btn-primary">See plans</a>
+          <a href="mailto:divolandialabs@gmail.com?subject=Private%20Bookmarks" class="btn-ghost">Contact</a>
+        </div>
+        <div class="p-tags">
+          <span class="p-tag">Google Chrome</span>
+          <span class="p-tag">Free plan available</span>
+          <span class="p-tag">Coming soon to the Chrome Web Store</span>
+        </div>
+      </div>
+      <div class="mock" aria-hidden="true">
+        <div class="mock-top"><i></i><i></i><i></i></div>
+        <div class="mock-bar">
+          <span class="bm">📄 News</span>
+          <span class="bm locked">🔒 Banking</span>
+          <span class="bm">📄 Recipes</span>
+          <span class="bm locked">📁 Protected folder</span>
+        </div>
+        <div class="mock-body">
+          <p>Enter your PIN to open this bookmark</p>
+          <div class="pin"><span class="on">•</span><span class="on">•</span><span class="on">•</span><span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-section alt">
+      <div class="p-inner">
+        <div class="section-head">
+          <h2>What it does</h2>
+          <p>Your bookmarks bar stays the same — only the bookmarks you pick ask for the PIN.</p>
+        </div>
+        <div class="features">
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">🔒</div>
+            <h3>PIN on bookmarks</h3>
+            <p>Choose which bookmarks ask for a PIN before opening. Everything else works as usual.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">📁</div>
+            <h3>Hidden folders</h3>
+            <p>Hide the contents of a whole folder. Only “Protected folder” shows until you enter the PIN.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">🎨</div>
+            <h3>Your choice of icon</h3>
+            <p>A blue padlock or the site's original icon: you decide how each protected bookmark looks.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">🗂️</div>
+            <h3>Encrypted backup</h3>
+            <p>Download a copy of everything you protect, encrypted with your PIN, so you never lose anything.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">☁️</div>
+            <h3>Sync</h3>
+            <p>Take your protected bookmarks to another computer through your Chrome account — always encrypted.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">🌐</div>
+            <h3>10 languages</h3>
+            <p>English, Spanish, French, Italian, German, Russian, Korean, Japanese, Chinese and Arabic.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-section" id="pricing">
+      <div class="p-inner">
+        <div class="section-head">
+          <h2>Plans</h2>
+          <p>Start for free. Upgrade to Premium for unlimited bookmarks and folders, backups and sync.</p>
+        </div>
+        <div class="plans">
+          <div class="plan">
+            <h3>Free</h3>
+            <div class="plan-price">€0</div>
+            <div class="plan-period">forever</div>
+            <p>2 bookmarks and 1 folder</p>
+          </div>
+          <div class="plan">
+            <h3>Monthly</h3>
+            <div class="plan-price">€1</div>
+            <div class="plan-period">per month</div>
+            <p>Cancel anytime</p>
+          </div>
+          <div class="plan featured">
+            <span class="plan-badge">Most popular</span>
+            <h3>Yearly</h3>
+            <div class="plan-price">€7.45</div>
+            <div class="plan-period">per year</div>
+            <p>Save 38%</p>
+          </div>
+          <div class="plan">
+            <h3>Lifetime</h3>
+            <div class="plan-price">€14.99</div>
+            <div class="plan-period">one-time payment</div>
+            <p>All future updates included</p>
+          </div>
+        </div>
+
+        <table class="compare">
+          <thead>
+            <tr><th scope="col">Feature</th><th scope="col">Free</th><th scope="col">★ Premium</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>PIN-protected bookmarks</td><td>Up to 2</td><td class="yes">Unlimited</td></tr>
+            <tr><td>Hidden folders</td><td>Up to 1</td><td class="yes">Unlimited</td></tr>
+            <tr><td>Original icon or padlock</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+            <tr><td>Encrypted backup file</td><td>—</td><td class="yes">✓</td></tr>
+            <tr><td>Sync between computers</td><td>—</td><td class="yes">✓</td></tr>
+          </tbody>
+        </table>
+
+        <div class="p-actions" style="margin-top:2rem">
+          <a href="https://divolabs.lemonsqueezy.com/checkout/buy/761d7ee4-625f-4673-80ed-fb188eb1caf1" class="btn-primary" target="_blank" rel="noopener">Get Premium</a>
+        </div>
+        <p class="note">Secure payment handled by Lemon Squeezy. You'll receive a license key to activate Premium in the extension's ★ Premium tab. Prices may vary with local taxes.</p>
+      </div>
+    </section>
+
+    <section class="p-section alt">
+      <div class="p-inner">
+        <div class="section-head">
+          <h2>Available in</h2>
+        </div>
+        <div class="langs">
+          <span class="p-tag">English</span><span class="p-tag">Español</span><span class="p-tag">Français</span>
+          <span class="p-tag">Italiano</span><span class="p-tag">Deutsch</span><span class="p-tag">Русский</span>
+          <span class="p-tag">한국어</span><span class="p-tag">日本語</span><span class="p-tag">中文</span><span class="p-tag">العربية</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 <a href="../">Divolandia Labs</a></p>
+    <div class="footer-meta">
+      <p><a href="https://github.com/DivolandiaLabs/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a></p>
+      <p><a href="mailto:divolandialabs@gmail.com?subject=Private%20Bookmarks%20support">Support</a></p>
+      <p>Private Bookmarks is an independent extension for Google Chrome, not affiliated with Google.</p>
+    </div>
+  </footer>
+
+  <script src="../products.js"></script>
+</body>
+</html>

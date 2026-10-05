@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Local Media for Alexa — Divolandia Labs</title>
+  <meta name="description" content="Play the music on your Raspberry Pi on your Echo devices by voice. A free, self-hosted alternative to My Media for Alexa." />
+  <link rel="canonical" href="https://divolandialabs.github.io/local-media-for-alexa/" />
+  <meta name="theme-color" content="#0a0d14" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" href="../Divolandia%20Labs%20logo.jpg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://divolandialabs.github.io/local-media-for-alexa/" />
+  <meta property="og:site_name" content="Divolandia Labs" />
+  <meta property="og:title" content="Local Media for Alexa — your Raspberry Pi music on Alexa" />
+  <meta property="og:description" content="A free, self-hosted alternative to My Media for Alexa. Everything stays at home." />
+  <meta property="og:image" content="https://divolandialabs.github.io/local-media-for-alexa/img/home.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../products.css" />
+</head>
+<body>
+
+  <nav aria-label="Main navigation">
+    <a href="../" class="nav-logo">Divolandia<span>Labs</span></a>
+    <ul class="nav-links">
+      <li class="nav-products" id="navProducts">
+        <button class="nav-products-btn" id="productsBtn" aria-haspopup="true" aria-expanded="false" aria-controls="productsMenu">
+          <span>Products</span>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 7l5 5 5-5"/></svg>
+        </button>
+        <ul class="products-menu" id="productsMenu">
+          <li><a href="https://divolandialabs.github.io/onoffether/">
+            <span class="pm-icon" aria-hidden="true">🔌</span>
+            <span><span class="pm-name">OnOffEther</span><span class="pm-desc">Wired internet on/off in one click</span></span>
+          </a></li>
+          <li><a href="../local-media-for-alexa/" aria-current="page">
+            <span class="pm-icon" aria-hidden="true">🎵</span>
+            <span><span class="pm-name">Local Media for Alexa</span><span class="pm-desc">Your Raspberry Pi music on Alexa</span></span>
+          </a></li>
+          <li><a href="../private-bookmarks/">
+            <span class="pm-icon" aria-hidden="true">🔒</span>
+            <span><span class="pm-name">Private Bookmarks</span><span class="pm-desc">PIN-protect your Chrome bookmarks</span></span>
+          </a></li>
+        </ul>
+      </li>
+      <li><a href="../#services">Services</a></li>
+      <li><a href="../#about">About</a></li>
+      <li><a href="../#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="p-hero">
+      <div class="p-hero-left">
+        <p class="p-eyebrow">Raspberry Pi · Alexa skill · Free</p>
+        <h1>Your music collection, on Alexa</h1>
+        <p class="p-sub">Local Media plays the music stored on your Raspberry Pi on your Echo devices, by voice. A free, self-hosted alternative to <em>My Media for Alexa</em>: no relay servers, no third-party accounts — everything stays at home.</p>
+        <div class="p-actions">
+          <a href="https://github.com/DivolandiaLabs/Local-Media-for-Alexa" class="btn-primary" target="_blank" rel="noopener">Get it on GitHub</a>
+          <a href="#install" class="btn-ghost">How to install</a>
+        </div>
+        <div class="p-tags">
+          <span class="p-tag">Raspberry Pi 3 / 4 / 5 / Zero 2 W</span>
+          <span class="p-tag">Any Linux · Docker</span>
+          <span class="p-tag">Open source</span>
+        </div>
+      </div>
+      <img class="p-shot" src="img/home.png" width="1280" height="800" alt="Local Media web app home screen with the music library" />
+    </section>
+
+    <section class="p-section alt">
+      <div class="p-inner">
+        <div class="section-head">
+          <h2>Just ask Alexa</h2>
+          <p>The skill works in English (US, UK) and Spanish (Spain, Mexico, US).</p>
+        </div>
+        <ul class="voice">
+          <li>“Alexa, open my collection”</li>
+          <li>“Alexa, ask my collection to play Queen”</li>
+          <li>“Alexa, ask my collection to play the album Abbey Road”</li>
+          <li>“Alexa, ask my collection to play music from the eighties”</li>
+          <li>“Alexa, ask my collection what's playing”</li>
+          <li>“Alexa, next” · “Alexa, shuffle”</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="p-section">
+      <div class="p-inner">
+        <div class="section-head">
+          <h2>What it does</h2>
+          <p>Everything you'd expect from My Media for Alexa, running on your own hardware.</p>
+        </div>
+        <div class="features">
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">🔎</div>
+            <h3>Play anything by voice</h3>
+            <p>Artist, album, song, genre, folder, playlist, year or decade — with fuzzy search that copes with what Alexa mishears.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">💽</div>
+            <h3>All your formats</h3>
+            <p>MP3 plus FLAC, WMA, OGG, OPUS, WAV, ALAC, APE… transcoded on the fly with ffmpeg, with seeking and resume.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">🗄️</div>
+            <h3>USB, SD, NAS &amp; DLNA</h3>
+            <p>Scans local drives and mounted shares, and plays from UPnP/DLNA servers like Plex, Jellyfin or MiniDLNA.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">📋</div>
+            <h3>Playlists &amp; favorites</h3>
+            <p>Imports M3U, PLS and iTunes playlists. Create your own, add tracks by voice and mark favorites ⭐.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">📻</div>
+            <h3>Radios &amp; audiobooks</h3>
+            <p>Internet radio stations and audiobooks that remember where you left off.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">🔊</div>
+            <h3>Every Echo, its own queue</h3>
+            <p>Several Echo devices with independent queues, multi-room groups, and cover art on Echo Show.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-section alt">
+      <div class="p-inner">
+        <div class="section-head">
+          <h2>A web app to manage it all</h2>
+          <p>Open it from your phone or computer at home. Translated into 10 languages, with light and dark themes.</p>
+        </div>
+        <div class="gallery">
+          <figure>
+            <img class="p-shot" src="img/album.png" width="1280" height="800" loading="lazy" alt="Album view in dark mode" />
+            <figcaption><strong>Browse your library</strong> by artists, albums, songs, genres, folders, playlists and radios.</figcaption>
+          </figure>
+          <figure>
+            <img class="p-shot" src="img/output.png" width="1280" height="800" loading="lazy" alt="Play on… selector to choose the Echo device" />
+            <figcaption><strong>Play on…</strong> play in the browser, or get a queue ready on the Echo you pick.</figcaption>
+          </figure>
+          <figure>
+            <img class="p-shot" src="img/echo.png" width="1280" height="800" loading="lazy" alt="List of Echo devices and what each one is playing" />
+            <figcaption><strong>Your Echo devices</strong>: what each one is playing, its queue, and every phrase you can say.</figcaption>
+          </figure>
+          <figure>
+            <img class="p-shot" src="img/setup.png" width="1280" height="800" loading="lazy" alt="Step-by-step Alexa setup guide" />
+            <figcaption><strong>Set up Alexa</strong>: a step-by-step guide. <em>Connect with Amazon</em> creates the skill for you.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-section" id="install">
+      <div class="p-inner">
+        <div class="section-head">
+          <h2>Install in a few minutes</h2>
+          <p>Requires a Raspberry Pi 3/4/5 or Zero 2 W with Raspberry Pi OS (Bookworm or later). It also runs on any x86 Linux or with Docker.</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div>
+              <h3>Run the installer</h3>
+<pre>sudo apt update &amp;&amp; sudo apt install -y git
+git clone https://github.com/DivolandiaLabs/Local-Media-for-Alexa.git
+cd Local-Media-for-Alexa
+chmod +x install.sh
+./install.sh --cloudflare</pre>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <h3>Add your music</h3>
+              <p>Open <code>http://PI-IP:8080</code>, go to <strong>Settings</strong>, add your folders and press <strong>Scan now</strong>.</p>
+            </div>
+          </div>
+          <div class="step">
+            <div>
+              <h3>Connect Alexa</h3>
+              <p>Follow <strong>Set up Alexa</strong> — about 10 minutes, only once. Then say “Alexa, open my collection”.</p>
+            </div>
+          </div>
+        </div>
+        <p class="note">Full documentation, Docker instructions and troubleshooting are in the <a href="https://github.com/DivolandiaLabs/Local-Media-for-Alexa#readme" target="_blank" rel="noopener">README on GitHub</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 <a href="../">Divolandia Labs</a></p>
+    <div class="footer-meta">
+      <p><a href="https://github.com/DivolandiaLabs/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a></p>
+      <p>Local Media for Alexa is not affiliated with Amazon.</p>
+    </div>
+  </footer>
+
+  <script src="../products.js"></script>
+</body>
+</html>
