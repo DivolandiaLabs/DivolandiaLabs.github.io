@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>NeoCalc — Divolandia Labs</title>
+  <meta name="description" content="NeoCalc is a free Windows calculator — standard and scientific — with 26 themes and a full theme editor." />
+  <link rel="canonical" href="https://divolandialabs.github.io/neocalc/" />
+  <meta name="theme-color" content="#0a0d14" />
+  <meta name="color-scheme" content="dark" />
+  <link rel="icon" href="img/icon.png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://divolandialabs.github.io/neocalc/" />
+  <meta property="og:site_name" content="Divolandia Labs" />
+  <meta property="og:title" content="NeoCalc — The Windows calculator, with 26 themes" />
+  <meta property="og:description" content="Standard and scientific calculator for Windows 10 and 11 with 26 built-in themes and an editor to make your own." />
+  <meta property="og:image" content="https://divolandialabs.github.io/neocalc/img/en-cientifica.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../products.css" />
+  <style>
+    .p-eyebrow img { width: 22px; height: 22px; vertical-align: -5px; margin-right: .45rem; }
+    .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
+    .shots figcaption { font-size: .82rem; color: var(--muted); margin-top: .6rem; }
+    .shortcuts { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    .shortcuts td { padding: .55rem .8rem; border-bottom: 1px solid var(--border); color: var(--muted); }
+    .shortcuts td:first-child { color: var(--text); white-space: nowrap; font-family: 'Space Grotesk', sans-serif; }
+    .langs { display: flex; flex-wrap: wrap; gap: .5rem; }
+    @media (max-width: 760px) { .shots { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <nav aria-label="Main navigation">
+    <a href="../" class="nav-logo">Divolandia<span>Labs</span></a>
+    <ul class="nav-links">
+      <li><a href="../#services">Services</a></li>
+      <li class="nav-products" id="navProducts">
+        <button class="nav-products-btn" id="productsBtn" aria-haspopup="true" aria-expanded="false" aria-controls="productsMenu">
+          <span>Products</span>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 7l5 5 5-5"/></svg>
+        </button>
+        <ul class="products-menu" id="productsMenu">
+          <li><a href="https://divolandialabs.github.io/onoffether/">
+            <span class="pm-icon" aria-hidden="true">🔌</span>
+            <span><span class="pm-name">OnOffEther</span><span class="pm-desc">Wired internet on/off in one click</span></span>
+          </a></li>
+          <li><a href="../local-media-for-alexa/">
+            <span class="pm-icon" aria-hidden="true">🎵</span>
+            <span><span class="pm-name">Local Media for Alexa</span><span class="pm-desc">Your Raspberry Pi music on Alexa</span></span>
+          </a></li>
+          <li><a href="../private-bookmarks/">
+            <span class="pm-icon" aria-hidden="true">🔒</span>
+            <span><span class="pm-name">Private Bookmarks</span><span class="pm-desc">PIN-protect your Chrome bookmarks</span></span>
+          </a></li>
+          <li><a href="../neocalc/" aria-current="page">
+            <span class="pm-icon" aria-hidden="true">🧮</span>
+            <span><span class="pm-name">NeoCalc</span><span class="pm-desc">Windows calculator with 26 themes</span></span>
+          </a></li>
+        </ul>
+      </li>
+      <li><a href="../#about">About</a></li>
+      <li><a href="../#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="p-hero">
+      <div class="p-hero-left">
+        <p class="p-eyebrow"><img src="img/icon.png" alt="" />Windows app · free</p>
+        <h1>The Windows calculator, your way</h1>
+        <p class="p-sub">Standard and scientific calculator that works just like the one in Windows — with 26 built-in themes and an editor to design your own: colors, gradients, fonts, round keys, neon glow and more.</p>
+        <div class="p-actions">
+          <a href="https://github.com/DivolandiaLabs/NeoCalc/releases/latest" class="btn-primary" target="_blank" rel="noopener">Download for Windows</a>
+          <a href="https://github.com/DivolandiaLabs/NeoCalc" class="btn-ghost" target="_blank" rel="noopener">View on GitHub</a>
+        </div>
+        <div class="p-tags">
+          <span class="p-tag">Windows 10 &amp; 11</span>
+          <span class="p-tag">No installation · ~200 KB</span>
+          <span class="p-tag">No internet, no telemetry</span>
+          <span class="p-tag">10 languages</span>
+        </div>
+      </div>
+      <img class="p-shot" src="img/en-cientifica.png" width="1080" height="960" alt="NeoCalc in scientific mode with the Cyber neon theme and the history panel" />
+    </section>
+
+    <section class="p-section alt">
+      <div class="p-inner">
+        <div class="section-head">
+          <h2>What it does</h2>
+          <p>Everything you expect from the Windows calculator, plus a look you choose.</p>
+        </div>
+        <div class="features">
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">🧮</div>
+            <h3>Standard &amp; scientific</h3>
+            <p>Behaves like Windows: chained operations, repeat with =, the same %. Scientific mode adds precedence, parentheses, trigonometry, logs, powers, roots and n!.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">🎨</div>
+            <h3>26 themes</h3>
+            <p>Windows dark and light, Cyber neon, Synthwave, Matrix, Retro LCD, Dracula, Game Boy, Hologram, Glass, iPhone-style round keys and many more.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">🛠️</div>
+            <h3>Theme editor</h3>
+            <p>Change every color, gradient, background image, font, corner, spacing and glow with a live preview. Or press Random for a surprise.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">🕘</div>
+            <h3>History &amp; memory</h3>
+            <p>MC, MR, M+, M−, MS and a full history — beside the keypad on a wide window, on top of it on a narrow one.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">📌</div>
+            <h3>Always on top</h3>
+            <p>Keep it above other windows while you work, and pin it to the taskbar with an icon in your theme's colors.</p>
+          </div>
+          <div class="feature">
+            <div class="feature-icon" aria-hidden="true">📤</div>
+            <h3>Share your themes</h3>
+            <p>Export a theme to a small .neocalc.json file and import themes made by others.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-section">
+      <div class="p-inner">
+        <div class="section-head">
+          <h2>Make it yours</h2>
+          <p>Pick a built-in theme and tweak it — your changes go into a copy under “My themes”, so the originals are always there.</p>
+        </div>
+        <div class="shots">
+          <figure>
+            <img class="p-shot" src="img/en-galeria.png" width="2100" height="1968" loading="lazy" alt="The 26 built-in NeoCalc themes" />
+            <figcaption>The 26 built-in themes.</figcaption>
+          </figure>
+          <figure>
+            <img class="p-shot" src="img/en-temas.png" width="1040" height="720" loading="lazy" alt="The NeoCalc theme editor" />
+            <figcaption>The theme editor: changes show up instantly in the calculator.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="p-section alt">
+      <div class="p-inner">
+        <div class="section-head">
+          <h2>Keyboard shortcuts</h2>
+        </div>
+        <table class="shortcuts">
+          <tbody>
+            <tr><td>Alt+1 · Alt+2</td><td>Standard · Scientific</td></tr>
+            <tr><td>Ctrl+T · Ctrl+H</td><td>Themes · History</td></tr>
+            <tr><td>Ctrl+M / R / P / Q / L</td><td>MS · MR · M+ · M− · MC</td></tr>
+            <tr><td>Esc · Del · Backspace</td><td>C · CE · delete digit</td></tr>
+            <tr><td>F9 · R · @ · Q</td><td>+/− · 1/x · square root · x²</td></tr>
+            <tr><td>Ctrl+C · Ctrl+V</td><td>Copy · Paste</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="p-section">
+      <div class="p-inner">
+        <div class="section-head">
+          <h2>Get NeoCalc</h2>
+          <p>Download <strong>NeoCalc.exe</strong>, save it anywhere and open it. No installation, nothing running in the background. The source code is on GitHub and builds with the C# compiler included in Windows.</p>
+        </div>
+        <div class="p-actions">
+          <a href="https://github.com/DivolandiaLabs/NeoCalc/releases/latest" class="btn-primary" target="_blank" rel="noopener">Download NeoCalc.exe</a>
+          <a href="https://github.com/DivolandiaLabs/NeoCalc" class="btn-ghost" target="_blank" rel="noopener">Source code on GitHub</a>
+        </div>
+        <p class="note">The app isn't code-signed yet, so Windows SmartScreen may warn you the first time: click “More info → Run anyway”. NeoCalc makes no internet connections and collects no data; settings stay in %APPDATA%\NeoCalc on your computer.</p>
+      </div>
+    </section>
+
+    <section class="p-section alt">
+      <div class="p-inner">
+        <div class="section-head">
+          <h2>Available in</h2>
+        </div>
+        <div class="langs">
+          <span class="p-tag">Español</span><span class="p-tag">English</span><span class="p-tag">Português</span>
+          <span class="p-tag">Français</span><span class="p-tag">Deutsch</span><span class="p-tag">Italiano</span>
+          <span class="p-tag">Polski</span><span class="p-tag">Русский</span><span class="p-tag">한국어</span><span class="p-tag">日本語</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 <a href="../">Divolandia Labs</a></p>
+    <div class="footer-meta">
+      <p><a href="https://github.com/DivolandiaLabs/NeoCalc" target="_blank" rel="noopener">GitHub</a></p>
+      <p><a href="https://github.com/DivolandiaLabs/NeoCalc/issues" target="_blank" rel="noopener">Support</a></p>
+      <p>NeoCalc is an independent app, not affiliated with Microsoft.</p>
+    </div>
+  </footer>
+
+  <script src="../products.js"></script>
+</body>
+</html>
