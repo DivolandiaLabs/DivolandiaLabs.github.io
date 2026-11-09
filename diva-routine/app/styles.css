@@ -1487,3 +1487,19 @@ dialog.cls-dlg h3 { padding-right: 36px; }
 .web-note { margin: 0 0 14px; padding: 10px 14px; border-radius: 10px; background: var(--accent-soft); color: var(--text); font-size: 0.9rem; line-height: 1.45; }
 .web-note a { color: var(--accent); font-weight: 600; margin-left: 4px; }
 .web-off { opacity: 0.5; pointer-events: none; user-select: none; }
+
+/* móvil de verdad: la barra de arriba, compacta (logo sin texto y pestañas más pequeñas que caben) */
+@media (max-width: 520px) {
+  .topbar { padding: 8px 10px; gap: 6px; }
+  .topbar .brand-text { display: none; }
+  .topbar nav { flex: 0 1 auto; min-width: 0; gap: 0; overflow-x: auto; scrollbar-width: none; }
+  .topbar nav::-webkit-scrollbar { display: none; }
+  .topbar nav a { flex: none; padding: 6px 7px; font-size: 0.78rem; white-space: nowrap; }
+  .nav-back { display: none !important; } /* el móvil ya tiene su botón de volver */
+  .topbar .brand-logo { width: 28px; height: 28px; }
+  .premium-link, .account { flex: none; }
+  .opts { scrollbar-width: none; bottom: calc(8px + env(safe-area-inset-bottom)); }
+  .opts::-webkit-scrollbar { display: none; }
+  /* tarjetas medianas: dos por fila */
+  .tiles.view-m { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+}
