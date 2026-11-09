@@ -1595,3 +1595,8 @@ dialog.cls-dlg h3 { padding-right: 36px; }
   .gsync:not(.err) { animation: pulse 1s infinite alternate; }
   .gsync.err { background: #d4473a22; }
 }
+
+/* Reordenar la lista de la clase: mantener pulsado y arrastrar. */
+.cls-list li { user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.cls-list.sorting li { cursor: grabbing; transition: none; }
+.cls-list li.lifted { position: relative; z-index: 2; background: var(--accent-soft); outline: 2px dashed var(--accent); box-shadow: 0 8px 22px rgb(0 0 0 / 0.25); transform: scale(1.02); }
