@@ -1540,3 +1540,18 @@ dialog.cls-dlg h3 { padding-right: 36px; }
   #grid .tile, #grid .tile * { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
   [draggable="true"], [draggable="true"] * { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 }
+
+/* Ventanas emergentes en el móvil en vertical: centradas, con el mismo margen a los dos lados y sin
+   que nada (un título largo, una lista) las ensanche más que la pantalla. */
+.panel, .rp-pick-list { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 640px) {
+  .panel.popup, dialog.ask, .ig-dialog, .share-dialog, .settings-dialog {
+    box-sizing: border-box; width: calc(100vw - 24px) !important; max-width: calc(100vw - 24px) !important;
+    max-height: calc(100dvh - 32px); margin: auto;
+  }
+  .panel.popup, dialog.ask, .ig-dialog, .share-dialog { overflow-x: hidden; overflow-y: auto; padding: 16px; }
+  .settings-dialog { height: calc(100dvh - 32px); }
+  .panel.popup > *, dialog > * { min-width: 0; max-width: 100%; }
+  .panel.popup p, .panel.popup summary, dialog p, dialog h2, dialog h3 { overflow-wrap: break-word; }
+  dialog footer, .ig-dialog footer { flex-wrap: wrap; }
+}
