@@ -1531,3 +1531,9 @@ dialog.cls-dlg h3 { padding-right: 36px; }
 @media (display-mode: standalone) and (max-width: 520px) {
   .nav-back { display: grid; }
 }
+
+/* pantallas táctiles: mantener pulsado un recuadro es para seleccionarlo y arrastrarlo,
+   no para el menú del navegador ni para seleccionar texto */
+@media (hover: none) {
+  #grid .tile, #grid .tile * { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+}

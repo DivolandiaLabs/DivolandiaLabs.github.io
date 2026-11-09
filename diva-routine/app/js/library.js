@@ -1414,11 +1414,54 @@ export function renderLibrary(root, libraryId) {
     document.body.classList.add('tile-moving');
   };
 
+  // En el móvil (dedo): mantener pulsado medio segundo selecciona el recuadro y ya se puede
+  // arrastrar; si el dedo se mueve antes, es desplazar la página como siempre.
+  let touchHold = null;
+  let lastTouch = false;
   root.addEventListener('pointerdown', (e) => {
+    lastTouch = e.pointerType === 'touch';
     if (e.button !== 0 || moving) return;
     const tile = e.target.closest?.('#grid .tile[data-kind="video"], #grid .tile[data-kind="library"], #grid .tile[data-kind="routine"]');
     if (!tile || e.target.closest(NO_DRAG)) return;
+    if (lastTouch) {
+      clearTimeout(touchHold?.timer);
+      const hold = { x: e.clientX, y: e.clientY, tile, armed: false };
+      hold.timer = setTimeout(() => {
+        hold.armed = true;
+        navigator.vibrate?.(15);
+        const kind = tile.dataset.kind;
+        if (kind !== 'routine' && selectedIndex(kind, tile.dataset.id) < 0) toggleSelected(kind, tile.dataset.id);
+        suppressClick = true; // soltar sin arrastrar no abre el recuadro
+        press = { x: hold.x, y: hold.y, tile };
+      }, 450);
+      touchHold = hold;
+      return;
+    }
     press = { x: e.clientX, y: e.clientY, tile };
+  });
+  const onHoldMove = (e) => {
+    if (touchHold && !touchHold.armed && Math.hypot(e.clientX - touchHold.x, e.clientY - touchHold.y) > 8) {
+      clearTimeout(touchHold.timer);
+      touchHold = null;
+    }
+  };
+  document.addEventListener('pointermove', onHoldMove);
+  const endHold = () => {
+    if (!touchHold) return;
+    clearTimeout(touchHold.timer);
+    if (touchHold.armed && !moving) setTimeout(() => (suppressClick = false), 400);
+    touchHold = null;
+  };
+  document.addEventListener('pointerup', endHold);
+  document.addEventListener('pointercancel', endHold);
+  // Mientras se arrastra con el dedo, la página no se desplaza (si no, el navegador corta el arrastre).
+  const onHoldTouch = (e) => {
+    if (touchHold?.armed || moving) e.preventDefault();
+  };
+  document.addEventListener('touchmove', onHoldTouch, { passive: false });
+  // Mantener pulsado no abre el menú del navegador (abrir imagen, descargar…).
+  root.addEventListener('contextmenu', (e) => {
+    if (lastTouch && e.target.closest?.('#grid .tile')) e.preventDefault();
   });
   let pointer = null; // dónde está el ratón mientras se arrastra
   let scrollRaf = 0;
@@ -2083,6 +2126,11 @@ export function renderLibrary(root, libraryId) {
     document.removeEventListener('pointerup', onTileUp);
     document.removeEventListener('pointercancel', endMove);
     document.removeEventListener('keydown', onTileKey);
+    document.removeEventListener('pointermove', onHoldMove);
+    document.removeEventListener('pointerup', endHold);
+    document.removeEventListener('pointercancel', endHold);
+    document.removeEventListener('touchmove', onHoldTouch);
+    endHold();
     endMove();
     document.removeEventListener('pointerup', onPillUp);
     document.removeEventListener('keydown', onPillEsc);
