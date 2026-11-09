@@ -142,6 +142,12 @@ export function renderVideo(root, id) {
   const $ = (s) => root.querySelector(s);
   if ($('#spotifySlot')) mountSpotify($('#spotifySlot'), v.source.url);
   const video = $('#video');
+  // Versión web: si el video (desde Drive) no carga, enseñar por qué.
+  if (globalThis.JR_WEB && video) video.addEventListener('error', async () => {
+    const r = await fetch(video.currentSrc || video.src, { headers: { Range: 'bytes=0-1' } }).catch((e) => ({ ok: false, statusText: e.message }));
+    const msg = r.ok ? `formato no compatible (${r.headers?.get('Content-Type') || '?'})` : (await r.json?.().catch(() => null))?.error || `${r.status || ''} ${r.statusText || ''}`;
+    toast(`${tr('No se pudo cargar el video')}: ${msg}`, 'error');
+  }, { once: true });
   // Velocidad: se recuerda la última elegida para todos los videos.
   if (video) {
     const speed = $('#speed');
