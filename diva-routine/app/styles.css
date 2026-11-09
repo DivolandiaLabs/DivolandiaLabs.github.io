@@ -1483,4 +1483,7 @@ dialog.cls-dlg h3 { padding-right: 36px; }
 .name-dlg .row { justify-content: flex-end; }
 
 /* versión web: sin lo que necesita el programa del PC o la cuenta de Google */
-html.web .premium-link, html.web #gsync { display: none !important; }
+/* versión web: lo que aún no funciona se ve, apagado, con un aviso */
+.web-note { margin: 0 0 14px; padding: 10px 14px; border-radius: 10px; background: var(--accent-soft); color: var(--text); font-size: 0.9rem; line-height: 1.45; }
+.web-note a { color: var(--accent); font-weight: 600; margin-left: 4px; }
+.web-off { opacity: 0.5; pointer-events: none; user-select: none; }

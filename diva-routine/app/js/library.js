@@ -405,7 +405,7 @@ export function renderLibrary(root, libraryId) {
 
   const connectDrive = async (btn) => {
     if (!state.google?.connected) return toast('Primero inicia sesión con tu cuenta de Google (Ajustes).', 'error');
-    window.open('/api/google/login?drive=1', '_blank');
+    globalThis.JR_WEB ? location.assign('api/google/login?drive=1') : window.open('/api/google/login?drive=1', '_blank');
     btn.disabled = true;
     btn.textContent = 'Esperando el permiso en el navegador…';
     for (let i = 0; i < 150; i++) {

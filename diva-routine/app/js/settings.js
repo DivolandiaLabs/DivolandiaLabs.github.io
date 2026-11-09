@@ -36,8 +36,14 @@ const KEYS = [
     ['Esc', 'Deja lo que había.'],
   ]],
 ];
-// En la versión web no están (necesitan el programa del PC o la cuenta de Google, que llegará después).
-const WEB_HIDDEN = new Set(['account', 'share', 'premium', 'social', 'cloud', 'folder']);
+// Versión web: estas secciones se ven, pero necesitan el programa de Windows o la cuenta de Google (que llegará).
+const WEB_OFF = {
+  share: 'Compartir con otras personas',
+  social: 'Conectar redes sociales y descargar sus vídeos',
+  folder: 'Usar una carpeta compartida del ordenador',
+};
+const APP_URL = 'https://github.com/DivolandiaLabs/diva-routine/releases/latest';
+const webNote = (what) => `<div class="web-note"><b>${esc(tr(what))}</b> ${esc(tr('aún no está disponible en la versión web.'))} <a href="${APP_URL}" target="_blank" rel="noopener">${esc(tr('Descargar la app de Windows'))}</a></div>`;
 
 const keysPane = () => `<section class="set-card"><h3>Atajos de teclado</h3>
   ${KEYS.map(([group, rows]) => `<h4 class="keys-group">${group}</h4><dl class="keys">${rows.map(([k, what]) => `<dt>${k.split(' + ').map((x) => `<kbd>${x}</kbd>`).join(' + ')}</dt><dd>${what}</dd>`).join('')}</dl>`).join('')}
@@ -187,7 +193,7 @@ function mountSettings(root, section) {
     } else if (!g.connected) {
       body = `
         <div class="row wrap">
-          <a class="btn primary g-login" href="/api/google/login">Iniciar sesión con Google</a>
+          <a class="btn primary g-login" href="api/google/login">Iniciar sesión con Google</a>
         </div>
         <p class="hint">Se abre Google: elige tu cuenta y da permiso a «Diva Routine» para guardar sus datos en tu Drive. Si aparece «Google no ha verificado esta app», pulsa <b>Configuración avanzada → Ir a Diva Routine</b>: es tu propia app.</p>`;
     } else {
@@ -510,7 +516,7 @@ function mountSettings(root, section) {
     { id: 'backup', label: 'Backups', icon: ICON.backup, html: '<section class="set-card" id="backupCard"></section>' },
     { id: 'folder', label: 'Carpeta compartida', icon: ICON.folder, html: folderPane() },
     { id: 'about', label: 'Acerca de', icon: ICON.about, html: aboutPane() },
-  ].filter((x) => x && !(globalThis.JR_WEB && WEB_HIDDEN.has(x.id)));
+  ].filter(Boolean).map((x) => (globalThis.JR_WEB && WEB_OFF[x.id] ? { ...x, off: true, html: webNote(WEB_OFF[x.id]) + `<div class="web-off">${x.html}</div>` } : x));
 
   const draw = () => {
     const list = sections();
@@ -564,7 +570,7 @@ function mountSettings(root, section) {
     const btn = e.target.closest('button');
     try {
       if (act === 'connect') {
-        window.open('/api/google/login?drive=1', '_blank');
+        globalThis.JR_WEB ? location.assign('api/google/login?drive=1') : window.open('/api/google/login?drive=1', '_blank');
         btn.disabled = true;
         btn.textContent = tr('Esperando el permiso en el navegador…');
         for (let i = 0; i < 150; i++) {
