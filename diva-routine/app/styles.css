@@ -1555,3 +1555,12 @@ dialog.cls-dlg h3 { padding-right: 36px; }
   .panel.popup p, .panel.popup summary, dialog p, dialog h2, dialog h3 { overflow-wrap: break-word; }
   dialog footer, .ig-dialog footer { flex-wrap: wrap; }
 }
+
+/* Ventana estrecha del ordenador: cabecera como en el móvil (solo el icono, menú en una línea). */
+@media (max-width: 1100px) {
+  .topbar { gap: 8px; padding: 8px 12px; }
+  .topbar .brand-text { display: none; }
+  .topbar nav { flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; margin-right: 0; }
+  .topbar nav::-webkit-scrollbar { display: none; }
+  .topbar nav a { flex: none; padding: 6px 10px; white-space: nowrap; }
+}
