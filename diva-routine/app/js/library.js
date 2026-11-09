@@ -214,6 +214,8 @@ export function renderLibrary(root, libraryId) {
     if (rect.top < barBottom || rect.bottom > innerHeight) smoothScrollBy(rect.top - barBottom - 10);
   };
 
+  // Dentro de una clase (o de algo que cuelga de ella) no se crean más clases.
+  const inClass = () => { for (let l = folder, i = 0; l && i < 50; l = libraryById(l.parentId), i++) if (isClass(l)) return true; return false; };
   root.innerHTML = `
     <div class="lib2">
       <section class="lib-main" id="main">
@@ -237,7 +239,7 @@ export function renderLibrary(root, libraryId) {
             <span class="mob-head">Vista</span>
             <div class="views" id="views" role="group" aria-label="Vista">${VIEWS.map(([k, label]) => `<button class="view-btn" data-view="${k}" title="${label} (Ctrl + rueda del ratón para cambiar)" aria-label="${label}">${VIEW_ICON[k]}</button>`).join('')}</div>
             <span class="mob-head">Mostrar</span>
-            <div class="hide-chips" id="hideChips" role="group" aria-label="Mostrar u ocultar">${[['video', 'Video'], ['routine', 'Rutina'], ['image', 'Foto'], ['audio', 'Audio'], ['folder', 'Carpeta'], ['class', 'Clase']].map(([k, label]) => `<button class="hide-chip" data-hide="${k}" title="${label}" aria-label="${label}">${HIDE_ICON[k]}</button>`).join('')}</div>
+            <div class="hide-chips" id="hideChips" role="group" aria-label="Mostrar u ocultar">${[['video', 'Video'], ['routine', 'Rutina'], ['image', 'Foto'], ['audio', 'Audio'], ['folder', 'Carpeta'], ...(inClass() ? [] : [['class', 'Clase']])].map(([k, label]) => `<button class="hide-chip" data-hide="${k}" title="${label}" aria-label="${label}">${HIDE_ICON[k]}</button>`).join('')}</div>
           </div>
         </header>
         </div>
@@ -312,7 +314,7 @@ export function renderLibrary(root, libraryId) {
       item('import', 'Importar', { title: 'Pegar links o imágenes' }),
       item('upload', 'Subir', { title: 'Subir videos o fotos del ordenador' }),
       item('newFolder', 'Carpeta', { title: 'Carpeta nueva' }),
-      item('newClass', 'Clase', { title: 'Clase nueva: lo que pongas dentro se reproduce seguido, en su orden' }),
+      inClass() ? '' : item('newClass', 'Clase', { title: 'Clase nueva: lo que pongas dentro se reproduce seguido, en su orden' }),
       item('share', 'Compartir', {
         disabled: !target,
         title: target ? `Compartir «${libraryById(target)?.name}» con otras personas (pueden añadir cosas)` : 'Entra en una carpeta (o selecciona una) para compartirla con otras personas',
@@ -1693,6 +1695,7 @@ export function renderLibrary(root, libraryId) {
 
   // La clase se crea en la biblioteca o carpeta que se está viendo.
   async function createClass() {
+    if (inClass()) return;
     const name = $('#newClassName').value.trim();
     if (!name) return $('#newClassName').focus();
     try {
