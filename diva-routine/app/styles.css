@@ -1582,3 +1582,16 @@ dialog.cls-dlg h3 { padding-right: 36px; }
   .cls-audio { padding: 14px 10px; }
   .cls-audio .sp-ctl { flex-wrap: wrap; justify-content: center; }
 }
+
+/* Aviso de sincronización en pantallas estrechas: solo un icono pequeño (el texto, en Ajustes y al
+   pasar por encima), para no tapar Bibliotecas, Creador de rutinas y Rutinas. */
+.gsync { flex: none; }
+@media (max-width: 1100px) {
+  .gsync { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; overflow: hidden; }
+  .gsync[hidden] { display: none; }
+  .gsync > span { display: none; }
+  .gsync::before { content: '☁'; font-size: 1.05rem; }
+  .gsync.err::before { content: '⚠'; }
+  .gsync:not(.err) { animation: pulse 1s infinite alternate; }
+  .gsync.err { background: #d4473a22; }
+}
