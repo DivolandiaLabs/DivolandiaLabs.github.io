@@ -1495,11 +1495,39 @@ dialog.cls-dlg h3 { padding-right: 36px; }
   .topbar nav { flex: 0 1 auto; min-width: 0; gap: 0; overflow-x: auto; scrollbar-width: none; }
   .topbar nav::-webkit-scrollbar { display: none; }
   .topbar nav a { flex: none; padding: 6px 7px; font-size: 0.78rem; white-space: nowrap; }
-  .nav-back { display: none !important; } /* el móvil ya tiene su botón de volver */
+  .nav-back { display: none; } /* el móvil ya tiene su botón de volver */
   .topbar .brand-logo { width: 28px; height: 28px; }
   .premium-link, .account { flex: none; }
   .opts { scrollbar-width: none; bottom: calc(8px + env(safe-area-inset-bottom)); }
   .opts::-webkit-scrollbar { display: none; }
   /* tarjetas medianas: dos por fila */
   .tiles.view-m { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+}
+
+/* biblioteca en el móvil: lupa que abre el buscador y un menú con orden, vista y filtros */
+.mob-btn, .mob-head { display: none; }
+@media (max-width: 640px) {
+  .lib-bar { position: relative; flex-wrap: wrap; gap: 6px; }
+  .lib-bar .crumbs { flex: 1 1 0; min-width: 0; }
+  .lib-bar .mob-btn { display: grid; place-items: center; flex: none; order: 1; width: 38px; height: 38px; padding: 0; border-radius: 12px; border: 1px solid var(--line); background: var(--surface-2); color: var(--muted); cursor: pointer; }
+  .lib-bar .mob-btn svg { width: 20px; height: 20px; }
+  .lib-bar.q-open #qBtn, .lib-bar.tools-open #toolsBtn { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+  .lib-bar input[type="search"] { display: none; }
+  .lib-bar.q-open input[type="search"] { display: block; order: 3; flex: 1 1 100%; margin: 0; }
+  .lib-bar .lib-tools { display: none; }
+  .lib-bar.tools-open .lib-tools {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 6px; order: 2;
+    position: absolute; z-index: 25; top: calc(100% - 4px); right: 0; width: min(300px, 100%);
+    padding: 12px 14px 14px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface); box-shadow: var(--shadow);
+  }
+  .lib-bar .mob-head { display: block; margin-top: 4px; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+  .lib-bar .mob-head:first-of-type { margin-top: 0; }
+  .lib-bar.tools-open .sorter { width: 100%; }
+  .lib-bar.tools-open .sorter select { width: 100%; }
+  .lib-bar.tools-open .hide-chips { flex-wrap: wrap; }
+}
+
+/* instalada como app (sin la barra del navegador): en el iPhone no hay botón de volver, así que se ve la flecha */
+@media (display-mode: standalone) and (max-width: 520px) {
+  .nav-back { display: grid; }
 }

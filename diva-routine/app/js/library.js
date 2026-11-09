@@ -227,11 +227,16 @@ export function renderLibrary(root, libraryId) {
                <button class="icon-btn" data-act="rename" title="Cambiar el nombre de la carpeta" aria-label="Cambiar el nombre">${PENCIL}</button><span id="folderShare"></span>`
             : shelfTitle()}</nav>
           <input id="q" type="search" placeholder="Buscar en todo…" aria-label="Buscar">
+          <button class="mob-btn" id="qBtn" title="Buscar" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></button>
+          <button class="mob-btn" id="toolsBtn" title="Orden, vista y filtros" aria-label="Orden, vista y filtros" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></svg></button>
           <div class="lib-tools">
             <button class="pin-jump" id="pinJump" data-pin-jump hidden title="Ir a lo anclado" aria-label="Ir a lo anclado">${PIN}<b></b></button>
+            <span class="mob-head">Ordenar</span>
             <label class="sorter" title="Ordenar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16M3 16l4 4 4-4M17 20V4M13 8l4-4 4 4"/></svg>
               <select id="sortBy" aria-label="Ordenar">${SORTS.map(([k, label]) => `<option value="${k}" ${k === sortBy ? 'selected' : ''}>${label}</option>`).join('')}</select></label>
+            <span class="mob-head">Vista</span>
             <div class="views" id="views" role="group" aria-label="Vista">${VIEWS.map(([k, label]) => `<button class="view-btn" data-view="${k}" title="${label} (Ctrl + rueda del ratón para cambiar)" aria-label="${label}">${VIEW_ICON[k]}</button>`).join('')}</div>
+            <span class="mob-head">Mostrar</span>
             <div class="hide-chips" id="hideChips" role="group" aria-label="Mostrar u ocultar">${[['video', 'Video'], ['routine', 'Rutina'], ['image', 'Foto'], ['audio', 'Audio'], ['folder', 'Carpeta'], ['class', 'Clase']].map(([k, label]) => `<button class="hide-chip" data-hide="${k}" title="${label}" aria-label="${label}">${HIDE_ICON[k]}</button>`).join('')}</div>
           </div>
         </header>
@@ -2021,6 +2026,26 @@ export function renderLibrary(root, libraryId) {
   drawHide();
 
   $('#q').addEventListener('input', (e) => ((filters.q = e.target.value), drawGrid()));
+  // Móvil: el buscador se abre con la lupa; orden, vista y filtros van en un menú.
+  const bar = $('.lib-bar');
+  $('#qBtn').onclick = () => {
+    const open = bar.classList.toggle('q-open');
+    if (open) $('#q').focus();
+    else if (!$('#q').value) bar.classList.remove('q-open');
+  };
+  $('#q').addEventListener('blur', () => { if (!$('#q').value) bar.classList.remove('q-open'); });
+  const setTools = (on) => {
+    bar.classList.toggle('tools-open', on);
+    $('#toolsBtn').setAttribute('aria-expanded', String(on));
+  };
+  $('#toolsBtn').onclick = (e) => {
+    e.stopPropagation();
+    setTools(!bar.classList.contains('tools-open'));
+  };
+  document.addEventListener('pointerdown', function close(e) {
+    if (!root.isConnected) return document.removeEventListener('pointerdown', close);
+    if (bar.classList.contains('tools-open') && !e.target.closest('.lib-tools, #toolsBtn')) setTools(false);
+  });
 
   const onStore = (e) => {
     const { kind } = e.detail;
