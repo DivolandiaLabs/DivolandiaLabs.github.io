@@ -38,7 +38,6 @@ const KEYS = [
 ];
 // Versión web: estas secciones se ven, pero necesitan el programa de Windows o la cuenta de Google (que llegará).
 const WEB_OFF = {
-  share: 'Compartir con otras personas',
   social: 'Conectar redes sociales y descargar sus vídeos',
   folder: 'Usar una carpeta compartida del ordenador',
 };

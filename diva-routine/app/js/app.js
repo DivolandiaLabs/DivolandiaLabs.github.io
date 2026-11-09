@@ -9,6 +9,9 @@ import { renderAllRoutines } from './allroutines.js';
 import { renderClassPlay } from './classplay.js';
 import { openSettings } from './settings.js';
 import { maybeWelcome } from './welcome.js';
+import { installTouchDrag } from './touchdrag.js';
+
+installTouchDrag(); // arrastrar con el dedo en el móvil
 
 const host = document.getElementById('app');
 let teardown = null;

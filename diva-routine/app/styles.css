@@ -1536,4 +1536,5 @@ dialog.cls-dlg h3 { padding-right: 36px; }
    no para el menú del navegador ni para seleccionar texto */
 @media (hover: none) {
   #grid .tile, #grid .tile * { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+  [draggable="true"], [draggable="true"] * { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 }
