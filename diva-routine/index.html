@@ -23,9 +23,22 @@
   <link rel="stylesheet" href="../products.css" />
   <style>
     .p-hero { grid-template-columns: minmax(0, 1fr); }
+    .p-hero-intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, .8fr);
+      align-items: center;
+      column-gap: clamp(.75rem, 4vw, 4rem);
+      margin-bottom: 2.2rem;
+    }
+    .p-hero-intro .p-sub { margin-bottom: 0; }
     .p-eyebrow img { width: 22px; height: 22px; vertical-align: -5px; margin-right: .45rem; }
-    .p-logo { width: min(320px, 70vw); height: auto; justify-self: center; }
+    .p-logo { width: min(320px, 100%); height: auto; justify-self: center; }
     .p-shot { border-radius: 18px; box-shadow: 0 20px 50px rgb(0 0 0 / 0.45); }
+    @media (max-width: 768px) {
+      .p-hero-intro { grid-template-columns: minmax(0, 1fr) 32%; }
+      .p-hero-copy { display: contents; }
+      .p-hero-copy > :is(.p-eyebrow, h1) { grid-column: 1 / -1; }
+    }
   </style>
 </head>
 <body>
@@ -74,9 +87,14 @@
   <main>
     <section class="p-hero">
       <div class="p-hero-left">
-        <p class="p-eyebrow"><img src="img/icon.png" alt="" />Windows app · free</p>
-        <h1>Routines for sport, workouts and dance, from your videos</h1>
-        <p class="p-sub">Collect training, sport and dance videos in a visual library, mark the moves you want on a timeline, and Diva Routine draws each one as an illustrated sequence of key phases. Build routines with reps and notes, then train along with guided video sessions or prepare full classes from playlists of videos, music and other files.</p>
+        <div class="p-hero-intro">
+          <div class="p-hero-copy">
+            <p class="p-eyebrow"><img src="img/icon.png" alt="" />Windows app · free</p>
+            <h1>Routines for sport, workouts and dance, from your videos</h1>
+            <p class="p-sub">Collect training, sport and dance videos in a visual library, mark the moves you want on a timeline, and Diva Routine draws each one as an illustrated sequence of key phases. Build routines with reps and notes, then train along with guided video sessions or prepare full classes from playlists of videos, music and other files.</p>
+          </div>
+          <img class="p-logo p-shot" src="img/example-element.png" width="364" height="520" alt="Diva Routine: a library folder of dance steps" />
+        </div>
         <div class="p-actions">
           <a href="https://github.com/DivolandiaLabs/diva-routine/releases/latest" class="btn-primary" target="_blank" rel="noopener">Download for Windows</a>
           <a href="app/" class="btn-ghost">Open web version (beta)</a>
@@ -92,7 +110,6 @@
           <span class="p-tag">Automatic updates</span>
         </div>
       </div>
-      <img class="p-logo p-shot" src="img/example-element.png" width="364" height="520" alt="Diva Routine: a library folder of dance steps" />
     </section>
 
     <section class="p-section alt">
